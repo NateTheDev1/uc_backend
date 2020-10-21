@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"lib": ["esnext", "DOM"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"noImplicitAny": false,
+		"forceConsistentCasingInFileNames": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": false,
+		"sourceMap": false,
+		"noEmit": false,
+		"outDir": "./dist",
+		"inlineSourceMap": true,
+		"baseUrl": ".",
+		"typeRoots": ["./node_modules/@types/", "@types", "@types/jest"]
+	},
+	"ts-node": {
+		"files": true
+	},
+	"include": ["@types", "src"],
+	"exclude": [".vscode", ".git", "**/*.test.ts", "**/*.spec.ts", "node_modules"]
+}

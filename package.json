@@ -1,0 +1,38 @@
+{
+	"name": "untangled-cables-backend",
+	"version": "1.0.0",
+	"description": "Backend for untangled cables",
+	"main": "index.js",
+	"scripts": {
+		"dev": "concurrently \"npm run generate-types\" \"ts-node src/index.ts\" "
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/NateTheDev1/uc_backend.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/NateTheDev1/uc_backend/issues"
+	},
+	"homepage": "https://github.com/NateTheDev1/uc_backend#readme",
+	"dependencies": {
+		"apollo-server": "^2.18.2",
+		"apollo-server-express": "^2.18.2",
+		"debug-sx": "^0.2.4",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"graphql": "^15.3.0",
+		"knex": "^0.21.6",
+		"objection": "^2.2.3",
+		"pg": "^8.4.1",
+		"typescript": "^4.0.3"
+	},
+	"devDependencies": {
+		"@types/dotenv": "^8.2.0",
+		"@types/node": "^14.14.0",
+		"concurrently": "^5.3.0",
+		"ts-node": "^9.0.0"
+	}
+}
