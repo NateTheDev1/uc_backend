@@ -1,0 +1,38 @@
+type Mutation {
+	createUser(user: CreateUserInput!): User!
+	loginUser(credentials: LoginUserInput!): LoginReturn!
+}
+
+type Query {
+	user(userId: ID!): User
+}
+
+type LoginReturn {
+	user: User!
+	token: String!
+}
+
+input CreateUserInput {
+	name: String!
+	username: String!
+	password: String!
+	type: String
+}
+
+input LoginUserInput {
+	username: String!
+	password: String!
+}
+
+type User {
+	id: ID!
+	name: String!
+	username: String!
+	type: String!
+	createdAt: String!
+}
+
+type schema {
+	query: Query
+	mutation: Mutation
+}
