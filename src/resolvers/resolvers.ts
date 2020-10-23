@@ -3,6 +3,8 @@ import authenticationUtility from "../utils/authenticationUtility";
 import User from "../models/User";
 
 import { AuthenticationError } from "apollo-server";
+import ProductGroup from "../models/ProductGroup";
+import Product from "../models/Product";
 
 const resolvers: Resolvers.Resolvers = {
 	Query: {
@@ -14,6 +16,27 @@ const resolvers: Resolvers.Resolvers = {
 			return await User.query()
 				.where({ id: userId || context.session?.userId })
 				.first();
+		},
+		products: async (parent, args: Resolvers.QueryProductsArgs, context: Server.Context) => {
+			const { productGroupId } = args;
+
+			context.logger.info("Query: products for product group with id of " + productGroupId);
+
+			const products = await Product.query().where({ productGroupId });
+
+			return products;
+		},
+		productGroups: async (parent, args, context: Server.Context) => {
+			context.logger.info("Query: querying product groups");
+
+			const groups = await ProductGroup.query().withGraphFetched("products");
+
+			return groups;
+		},
+	},
+	ProductGroup: {
+		products: async (parent, args, context: Server.Context) => {
+			return await Product.query().where({ productGroupId: parent.id });
 		},
 	},
 	Mutation: {
@@ -64,6 +87,22 @@ const resolvers: Resolvers.Resolvers = {
 				context.logger.err("Error logging in user. Credentials are invalid.");
 				throw new Error("Username or password is incorrect");
 			}
+		},
+		createProduct: async (parent, args: Resolvers.MutationCreateProductArgs, context: Server.Context) => {
+			context.logger.info("Mutation: creating product with name of " + args.product.name);
+
+			const product = await Product.query().insertAndFetch(args.product);
+
+			return product;
+		},
+		createProductGroup: async (parent, args: Resolvers.MutationCreateProductGroupArgs, context: Server.Context) => {
+			const { type } = args.productGroup;
+
+			context.logger.info("Creating product group with type of " + type);
+
+			const productGroup = await ProductGroup.query().insertAndFetch({ type });
+
+			return productGroup;
 		},
 	},
 };

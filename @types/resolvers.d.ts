@@ -17,6 +17,8 @@ interface Mutation {
   __typename?: 'Mutation';
   createUser: User;
   loginUser: LoginReturn;
+  createProduct: Product;
+  createProductGroup?: Maybe<ProductGroup>;
 }
 
 
@@ -29,14 +31,58 @@ interface MutationLoginUserArgs {
   credentials: LoginUserInput;
 }
 
+
+interface MutationCreateProductArgs {
+  product: ProductInput;
+}
+
+
+interface MutationCreateProductGroupArgs {
+  productGroup: ProductGroupInput;
+}
+
+interface ProductGroupInput {
+  type: Scalars['String'];
+}
+
+interface ProductInput {
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  image: Scalars['String'];
+  productGroupId: Scalars['Int'];
+}
+
+interface Product {
+  __typename?: 'Product';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  image: Scalars['String'];
+  productGroupId: Scalars['Int'];
+}
+
+interface ProductGroup {
+  __typename?: 'ProductGroup';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  products: Array<Maybe<Product>>;
+}
+
 interface Query {
   __typename?: 'Query';
   user?: Maybe<User>;
+  products?: Maybe<Array<Maybe<Product>>>;
+  productGroups?: Maybe<Array<Maybe<ProductGroup>>>;
 }
 
 
 interface QueryUserArgs {
   userId: Scalars['ID'];
+}
+
+
+interface QueryProductsArgs {
+  productGroupId: Scalars['Int'];
 }
 
 interface LoginReturn {
@@ -151,10 +197,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
-  Query: ResolverTypeWrapper<{}>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  LoginReturn: ResolverTypeWrapper<LoginReturn>;
+  ProductGroupInput: ProductGroupInput;
   String: ResolverTypeWrapper<Scalars['String']>;
+  ProductInput: ProductInput;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Product: ResolverTypeWrapper<Product>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  ProductGroup: ResolverTypeWrapper<ProductGroup>;
+  Query: ResolverTypeWrapper<{}>;
+  LoginReturn: ResolverTypeWrapper<LoginReturn>;
   CreateUserInput: CreateUserInput;
   LoginUserInput: LoginUserInput;
   User: ResolverTypeWrapper<User>;
@@ -165,10 +216,15 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Mutation: {};
-  Query: {};
-  ID: Scalars['ID'];
-  LoginReturn: LoginReturn;
+  ProductGroupInput: ProductGroupInput;
   String: Scalars['String'];
+  ProductInput: ProductInput;
+  Int: Scalars['Int'];
+  Product: Product;
+  ID: Scalars['ID'];
+  ProductGroup: ProductGroup;
+  Query: {};
+  LoginReturn: LoginReturn;
   CreateUserInput: CreateUserInput;
   LoginUserInput: LoginUserInput;
   User: User;
@@ -179,10 +235,30 @@ export type ResolversParentTypes = {
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
   loginUser?: Resolver<ResolversTypes['LoginReturn'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'credentials'>>;
+  createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
+  createProductGroup?: Resolver<Maybe<ResolversTypes['ProductGroup']>, ParentType, ContextType, RequireFields<MutationCreateProductGroupArgs, 'productGroup'>>;
+};
+
+export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  productGroupId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductGroupResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductGroup'] = ResolversParentTypes['ProductGroup']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  products?: Resolver<Array<Maybe<ResolversTypes['Product']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'userId'>>;
+  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType, RequireFields<QueryProductsArgs, 'productGroupId'>>;
+  productGroups?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductGroup']>>>, ParentType, ContextType>;
 };
 
 export type LoginReturnResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginReturn'] = ResolversParentTypes['LoginReturn']> = {
@@ -208,6 +284,8 @@ export type SchemaResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
+  Product?: ProductResolvers<ContextType>;
+  ProductGroup?: ProductGroupResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   LoginReturn?: LoginReturnResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

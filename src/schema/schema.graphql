@@ -1,10 +1,39 @@
 type Mutation {
 	createUser(user: CreateUserInput!): User!
 	loginUser(credentials: LoginUserInput!): LoginReturn!
+	createProduct(product: ProductInput!): Product!
+	createProductGroup(productGroup: ProductGroupInput!): ProductGroup
+}
+
+input ProductGroupInput {
+	type: String!
+}
+
+input ProductInput {
+	name: String!
+	price: Int!
+	image: String!
+	productGroupId: Int!
+}
+
+type Product {
+	id: ID!
+	name: String!
+	price: Int!
+	image: String!
+	productGroupId: Int!
+}
+
+type ProductGroup {
+	id: ID!
+	type: String!
+	products: [Product]!
 }
 
 type Query {
 	user(userId: ID!): User
+	products(productGroupId: Int!): [Product]
+	productGroups: [ProductGroup]
 }
 
 type LoginReturn {
