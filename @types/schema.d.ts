@@ -16,6 +16,7 @@ interface Mutation {
   loginUser: LoginReturn;
   createProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
+  deleteProduct: Scalars['Boolean'];
 }
 
 
@@ -36,6 +37,11 @@ interface MutationCreateProductArgs {
 
 interface MutationCreateProductGroupArgs {
   productGroup: ProductGroupInput;
+}
+
+
+interface MutationDeleteProductArgs {
+  productId: Scalars['Int'];
 }
 
 interface ProductGroupInput {

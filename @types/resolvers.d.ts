@@ -19,6 +19,7 @@ interface Mutation {
   loginUser: LoginReturn;
   createProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
+  deleteProduct: Scalars['Boolean'];
 }
 
 
@@ -39,6 +40,11 @@ interface MutationCreateProductArgs {
 
 interface MutationCreateProductGroupArgs {
   productGroup: ProductGroupInput;
+}
+
+
+interface MutationDeleteProductArgs {
+  productId: Scalars['Int'];
 }
 
 interface ProductGroupInput {
@@ -197,10 +203,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   ProductGroupInput: ProductGroupInput;
   String: ResolverTypeWrapper<Scalars['String']>;
   ProductInput: ProductInput;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   ProductGroup: ResolverTypeWrapper<ProductGroup>;
@@ -210,16 +217,16 @@ export type ResolversTypes = {
   LoginUserInput: LoginUserInput;
   User: ResolverTypeWrapper<User>;
   schema: ResolverTypeWrapper<Schema>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Mutation: {};
+  Boolean: Scalars['Boolean'];
+  Int: Scalars['Int'];
   ProductGroupInput: ProductGroupInput;
   String: Scalars['String'];
   ProductInput: ProductInput;
-  Int: Scalars['Int'];
   Product: Product;
   ID: Scalars['ID'];
   ProductGroup: ProductGroup;
@@ -229,7 +236,6 @@ export type ResolversParentTypes = {
   LoginUserInput: LoginUserInput;
   User: User;
   schema: Schema;
-  Boolean: Scalars['Boolean'];
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -237,6 +243,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   loginUser?: Resolver<ResolversTypes['LoginReturn'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'credentials'>>;
   createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createProductGroup?: Resolver<Maybe<ResolversTypes['ProductGroup']>, ParentType, ContextType, RequireFields<MutationCreateProductGroupArgs, 'productGroup'>>;
+  deleteProduct?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'productId'>>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {

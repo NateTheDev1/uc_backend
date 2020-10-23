@@ -3,6 +3,7 @@ type Mutation {
 	loginUser(credentials: LoginUserInput!): LoginReturn!
 	createProduct(product: ProductInput!): Product!
 	createProductGroup(productGroup: ProductGroupInput!): ProductGroup
+	deleteProduct(productId: Int!): Boolean!
 }
 
 input ProductGroupInput {

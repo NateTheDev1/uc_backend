@@ -104,6 +104,21 @@ const resolvers: Resolvers.Resolvers = {
 
 			return productGroup;
 		},
+		deleteProduct: async (parent, args: Resolvers.MutationDeleteProductArgs, context: Server.Context) => {
+			const { productId } = args;
+
+			const product = Product.query().where({ id: productId }).first();
+			if (!product) {
+				context.logger.err("Product does not exist.");
+				throw new Error("Product does not exist.");
+			}
+
+			context.logger.warn("Deleting product with id of " + productId);
+
+			const deleted = Product.query().del().where({ id: productId });
+
+			return deleted ? true : false;
+		},
 	},
 };
 
