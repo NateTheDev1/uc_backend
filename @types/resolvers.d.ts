@@ -56,6 +56,7 @@ interface ProductInput {
   price: Scalars['Int'];
   image: Scalars['String'];
   productGroupId: Scalars['Int'];
+  description?: Maybe<Scalars['String']>;
 }
 
 interface Product {
@@ -65,6 +66,7 @@ interface Product {
   price: Scalars['Int'];
   image: Scalars['String'];
   productGroupId: Scalars['Int'];
+  description: Scalars['String'];
 }
 
 interface ProductGroup {
@@ -252,6 +254,7 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   productGroupId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

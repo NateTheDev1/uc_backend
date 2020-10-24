@@ -53,6 +53,7 @@ interface ProductInput {
   price: Scalars['Int'];
   image: Scalars['String'];
   productGroupId: Scalars['Int'];
+  description?: Maybe<Scalars['String']>;
 }
 
 interface Product {
@@ -62,6 +63,7 @@ interface Product {
   price: Scalars['Int'];
   image: Scalars['String'];
   productGroupId: Scalars['Int'];
+  description: Scalars['String'];
 }
 
 interface ProductGroup {

@@ -15,6 +15,7 @@ input ProductInput {
 	price: Int!
 	image: String!
 	productGroupId: Int!
+	description: String
 }
 
 type Product {
@@ -23,6 +24,7 @@ type Product {
 	price: Int!
 	image: String!
 	productGroupId: Int!
+	description: String!
 }
 
 type ProductGroup {
