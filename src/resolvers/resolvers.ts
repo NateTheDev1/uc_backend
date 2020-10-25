@@ -129,6 +129,19 @@ const resolvers: Resolvers.Resolvers = {
 
 			return deleted ? true : false;
 		},
+		editConfig: async (parent, args, context: Server.Context) => {
+			const { id, value } = args.config;
+
+			let config: Config;
+
+			config = await Config.query().upsertGraphAndFetch({ id: id.toString(), value });
+
+			if (!config) {
+				throw new Error("Could not update setting, Try again.");
+			}
+
+			return config ? true : false;
+		},
 	},
 };
 

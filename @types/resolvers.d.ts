@@ -20,6 +20,7 @@ interface Mutation {
   createProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
   deleteProduct: Scalars['Boolean'];
+  editConfig: Scalars['Boolean'];
 }
 
 
@@ -45,6 +46,16 @@ interface MutationCreateProductGroupArgs {
 
 interface MutationDeleteProductArgs {
   productId: Scalars['Int'];
+}
+
+
+interface MutationEditConfigArgs {
+  config: ConfigInput;
+}
+
+interface ConfigInput {
+  id: Scalars['Int'];
+  value: Scalars['String'];
 }
 
 interface ProductGroupInput {
@@ -216,8 +227,9 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  ProductGroupInput: ProductGroupInput;
+  ConfigInput: ConfigInput;
   String: ResolverTypeWrapper<Scalars['String']>;
+  ProductGroupInput: ProductGroupInput;
   ProductInput: ProductInput;
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -236,8 +248,9 @@ export type ResolversParentTypes = {
   Mutation: {};
   Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
-  ProductGroupInput: ProductGroupInput;
+  ConfigInput: ConfigInput;
   String: Scalars['String'];
+  ProductGroupInput: ProductGroupInput;
   ProductInput: ProductInput;
   Product: Product;
   ID: Scalars['ID'];
@@ -257,6 +270,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createProductGroup?: Resolver<Maybe<ResolversTypes['ProductGroup']>, ParentType, ContextType, RequireFields<MutationCreateProductGroupArgs, 'productGroup'>>;
   deleteProduct?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'productId'>>;
+  editConfig?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationEditConfigArgs, 'config'>>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {

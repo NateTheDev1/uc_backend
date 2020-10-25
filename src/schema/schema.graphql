@@ -4,6 +4,12 @@ type Mutation {
 	createProduct(product: ProductInput!): Product!
 	createProductGroup(productGroup: ProductGroupInput!): ProductGroup
 	deleteProduct(productId: Int!): Boolean!
+	editConfig(config: ConfigInput!): Boolean!
+}
+
+input ConfigInput {
+	id: Int!
+	value: String!
 }
 
 input ProductGroupInput {

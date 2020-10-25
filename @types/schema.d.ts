@@ -17,6 +17,7 @@ interface Mutation {
   createProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
   deleteProduct: Scalars['Boolean'];
+  editConfig: Scalars['Boolean'];
 }
 
 
@@ -42,6 +43,16 @@ interface MutationCreateProductGroupArgs {
 
 interface MutationDeleteProductArgs {
   productId: Scalars['Int'];
+}
+
+
+interface MutationEditConfigArgs {
+  config: ConfigInput;
+}
+
+interface ConfigInput {
+  id: Scalars['Int'];
+  value: Scalars['String'];
 }
 
 interface ProductGroupInput {
