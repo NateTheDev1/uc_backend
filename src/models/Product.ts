@@ -6,6 +6,7 @@ class Product extends BaseModel {
 	price!: number;
 	image!: string;
 	productGroupId!: number;
+	description!: string;
 
 	static get tableName() {
 		return "products";
