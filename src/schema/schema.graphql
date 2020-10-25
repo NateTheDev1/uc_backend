@@ -37,6 +37,14 @@ type Query {
 	user(userId: ID!): User
 	products(productGroupId: Int!): [Product]
 	productGroups: [ProductGroup]
+	adminUsers: [User]!
+	getConfig: [Config]
+}
+
+type Config {
+	id: ID!
+	type: String!
+	value: String!
 }
 
 type LoginReturn {

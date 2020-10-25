@@ -78,6 +78,8 @@ interface Query {
   user?: Maybe<User>;
   products?: Maybe<Array<Maybe<Product>>>;
   productGroups?: Maybe<Array<Maybe<ProductGroup>>>;
+  adminUsers: Array<Maybe<User>>;
+  getConfig?: Maybe<Array<Maybe<Config>>>;
 }
 
 
@@ -88,6 +90,13 @@ interface QueryUserArgs {
 
 interface QueryProductsArgs {
   productGroupId: Scalars['Int'];
+}
+
+interface Config {
+  __typename?: 'Config';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  value: Scalars['String'];
 }
 
 interface LoginReturn {

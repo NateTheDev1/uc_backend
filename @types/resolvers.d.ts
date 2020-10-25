@@ -81,6 +81,8 @@ interface Query {
   user?: Maybe<User>;
   products?: Maybe<Array<Maybe<Product>>>;
   productGroups?: Maybe<Array<Maybe<ProductGroup>>>;
+  adminUsers: Array<Maybe<User>>;
+  getConfig?: Maybe<Array<Maybe<Config>>>;
 }
 
 
@@ -91,6 +93,13 @@ interface QueryUserArgs {
 
 interface QueryProductsArgs {
   productGroupId: Scalars['Int'];
+}
+
+interface Config {
+  __typename?: 'Config';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  value: Scalars['String'];
 }
 
 interface LoginReturn {
@@ -214,6 +223,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   ProductGroup: ResolverTypeWrapper<ProductGroup>;
   Query: ResolverTypeWrapper<{}>;
+  Config: ResolverTypeWrapper<Config>;
   LoginReturn: ResolverTypeWrapper<LoginReturn>;
   CreateUserInput: CreateUserInput;
   LoginUserInput: LoginUserInput;
@@ -233,6 +243,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   ProductGroup: ProductGroup;
   Query: {};
+  Config: Config;
   LoginReturn: LoginReturn;
   CreateUserInput: CreateUserInput;
   LoginUserInput: LoginUserInput;
@@ -269,6 +280,15 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'userId'>>;
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType, RequireFields<QueryProductsArgs, 'productGroupId'>>;
   productGroups?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductGroup']>>>, ParentType, ContextType>;
+  adminUsers?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
+  getConfig?: Resolver<Maybe<Array<Maybe<ResolversTypes['Config']>>>, ParentType, ContextType>;
+};
+
+export type ConfigResolvers<ContextType = any, ParentType extends ResolversParentTypes['Config'] = ResolversParentTypes['Config']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type LoginReturnResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginReturn'] = ResolversParentTypes['LoginReturn']> = {
@@ -297,6 +317,7 @@ export type Resolvers<ContextType = any> = {
   Product?: ProductResolvers<ContextType>;
   ProductGroup?: ProductGroupResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Config?: ConfigResolvers<ContextType>;
   LoginReturn?: LoginReturnResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   schema?: SchemaResolvers<ContextType>;

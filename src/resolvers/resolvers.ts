@@ -1,6 +1,7 @@
 import authenticationUtility from "../utils/authenticationUtility";
 
 import User from "../models/User";
+import Config from "../models/Config";
 
 import { AuthenticationError } from "apollo-server";
 import ProductGroup from "../models/ProductGroup";
@@ -32,6 +33,15 @@ const resolvers: Resolvers.Resolvers = {
 			const groups = await ProductGroup.query().withGraphFetched("products");
 
 			return groups;
+		},
+		adminUsers: async (parent, args, context: Server.Context) => {
+			context.logger.info("Query: resolving all admin users");
+
+			return await User.query().where({ type: "ADMIN" });
+		},
+		getConfig: async (parent, args, context: Server.Context) => {
+			context.logger.info("Query: getting config");
+			return await Config.query();
 		},
 	},
 	ProductGroup: {
