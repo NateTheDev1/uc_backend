@@ -79,7 +79,7 @@ const resolvers: Resolvers.Resolvers = {
 				throw new AuthenticationError("User does not exist");
 			}
 
-			const valid = authenticationUtility.verifyPassword(credentials.password, foundUser[0].password);
+			const valid = await authenticationUtility.verifyPassword(credentials.password, foundUser[0].password);
 
 			if (!valid) {
 				throw new AuthenticationError("Username or password is incorrect");
