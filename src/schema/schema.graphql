@@ -1,5 +1,6 @@
 type Mutation {
 	createUser(user: CreateUserInput!): User!
+	removeAdmin(userId: Int!): Boolean!
 	loginUser(credentials: LoginUserInput!): LoginReturn!
 	createProduct(product: ProductInput!): Product!
 	createProductGroup(productGroup: ProductGroupInput!): ProductGroup

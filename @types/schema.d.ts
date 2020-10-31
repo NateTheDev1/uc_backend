@@ -13,6 +13,7 @@ interface Scalars {
 interface Mutation {
   __typename?: 'Mutation';
   createUser: User;
+  removeAdmin: Scalars['Boolean'];
   loginUser: LoginReturn;
   createProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
@@ -23,6 +24,11 @@ interface Mutation {
 
 interface MutationCreateUserArgs {
   user: CreateUserInput;
+}
+
+
+interface MutationRemoveAdminArgs {
+  userId: Scalars['Int'];
 }
 
 

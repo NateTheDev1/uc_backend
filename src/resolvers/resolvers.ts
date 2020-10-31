@@ -142,6 +142,16 @@ const resolvers: Resolvers.Resolvers = {
 
 			return config ? true : false;
 		},
+		removeAdmin: async (parent, args: Resolvers.MutationRemoveAdminArgs, context: Server.Context) => {
+			try {
+				await User.query().findById(args.userId).patch({ type: "CUSTOMER" });
+			} catch (e) {
+				context.logger.err(e.message);
+				return false;
+			}
+
+			return true;
+		},
 	},
 };
 

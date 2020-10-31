@@ -16,6 +16,7 @@ interface Scalars {
 interface Mutation {
   __typename?: 'Mutation';
   createUser: User;
+  removeAdmin: Scalars['Boolean'];
   loginUser: LoginReturn;
   createProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
@@ -26,6 +27,11 @@ interface Mutation {
 
 interface MutationCreateUserArgs {
   user: CreateUserInput;
+}
+
+
+interface MutationRemoveAdminArgs {
+  userId: Scalars['Int'];
 }
 
 
@@ -266,6 +272,7 @@ export type ResolversParentTypes = {
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
+  removeAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemoveAdminArgs, 'userId'>>;
   loginUser?: Resolver<ResolversTypes['LoginReturn'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'credentials'>>;
   createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createProductGroup?: Resolver<Maybe<ResolversTypes['ProductGroup']>, ParentType, ContextType, RequireFields<MutationCreateProductGroupArgs, 'productGroup'>>;
