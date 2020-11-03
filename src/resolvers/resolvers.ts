@@ -18,6 +18,13 @@ const resolvers: Resolvers.Resolvers = {
 				.where({ id: userId || context.session?.userId })
 				.first();
 		},
+		allProducts: async (parent, args, context: Server.Context) => {
+			context.logger.info("Querying all products");
+
+			const products = await Product.query();
+
+			return products;
+		},
 		products: async (parent, args: Resolvers.QueryProductsArgs, context: Server.Context) => {
 			const { productGroupId } = args;
 
@@ -151,6 +158,21 @@ const resolvers: Resolvers.Resolvers = {
 			}
 
 			return true;
+		},
+		editProduct: async (parent, args: Resolvers.MutationEditProductArgs, context: Server.Context) => {
+			context.logger.info("Editing product");
+
+			const prodArgs = args.product;
+
+			const product = await Product.query().patchAndFetchById(args.product.id, {
+				name: prodArgs.name,
+				description: prodArgs.description,
+				image: prodArgs.id,
+				price: prodArgs.price,
+				productGroupId: prodArgs.productGroupId,
+			});
+
+			return product;
 		},
 	},
 };

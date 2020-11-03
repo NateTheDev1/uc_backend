@@ -16,6 +16,7 @@ interface Mutation {
   removeAdmin: Scalars['Boolean'];
   loginUser: LoginReturn;
   createProduct: Product;
+  editProduct: Product;
   createProductGroup?: Maybe<ProductGroup>;
   deleteProduct: Scalars['Boolean'];
   editConfig: Scalars['Boolean'];
@@ -39,6 +40,11 @@ interface MutationLoginUserArgs {
 
 interface MutationCreateProductArgs {
   product: ProductInput;
+}
+
+
+interface MutationEditProductArgs {
+  product: EditProductInput;
 }
 
 
@@ -73,6 +79,15 @@ interface ProductInput {
   description?: Maybe<Scalars['String']>;
 }
 
+interface EditProductInput {
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
+  productGroupId?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+}
+
 interface Product {
   __typename?: 'Product';
   id: Scalars['ID'];
@@ -97,6 +112,7 @@ interface Query {
   productGroups?: Maybe<Array<Maybe<ProductGroup>>>;
   adminUsers: Array<Maybe<User>>;
   getConfig?: Maybe<Array<Maybe<Config>>>;
+  allProducts?: Maybe<Array<Maybe<Product>>>;
 }
 
 

@@ -3,6 +3,7 @@ type Mutation {
 	removeAdmin(userId: Int!): Boolean!
 	loginUser(credentials: LoginUserInput!): LoginReturn!
 	createProduct(product: ProductInput!): Product!
+	editProduct(product: EditProductInput!): Product!
 	createProductGroup(productGroup: ProductGroupInput!): ProductGroup
 	deleteProduct(productId: Int!): Boolean!
 	editConfig(config: ConfigInput!): Boolean!
@@ -22,6 +23,15 @@ input ProductInput {
 	price: Int!
 	image: String!
 	productGroupId: Int!
+	description: String
+}
+
+input EditProductInput {
+	id: ID!
+	name: String
+	price: Int
+	image: String
+	productGroupId: Int
 	description: String
 }
 
@@ -46,6 +56,7 @@ type Query {
 	productGroups: [ProductGroup]
 	adminUsers: [User]!
 	getConfig: [Config]
+	allProducts: [Product]
 }
 
 type Config {
