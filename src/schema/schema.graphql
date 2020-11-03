@@ -23,6 +23,7 @@ input ProductInput {
 	price: Int!
 	image: String!
 	productGroupId: Int!
+	enabled: String!
 	description: String
 }
 
@@ -31,6 +32,7 @@ input EditProductInput {
 	name: String
 	price: Int
 	image: String
+	enabled: String
 	productGroupId: Int
 	description: String
 }
@@ -42,6 +44,7 @@ type Product {
 	image: String!
 	productGroupId: Int!
 	description: String!
+	enabled: String!
 }
 
 type ProductGroup {
