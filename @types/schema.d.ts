@@ -116,6 +116,7 @@ interface Query {
   adminUsers: Array<Maybe<User>>;
   getConfig?: Maybe<Array<Maybe<Config>>>;
   allProducts?: Maybe<Array<Maybe<Product>>>;
+  product?: Maybe<Product>;
 }
 
 
@@ -126,6 +127,11 @@ interface QueryUserArgs {
 
 interface QueryProductsArgs {
   productGroupId: Scalars['Int'];
+}
+
+
+interface QueryProductArgs {
+  id: Scalars['ID'];
 }
 
 interface Config {

@@ -119,6 +119,7 @@ interface Query {
   adminUsers: Array<Maybe<User>>;
   getConfig?: Maybe<Array<Maybe<Config>>>;
   allProducts?: Maybe<Array<Maybe<Product>>>;
+  product?: Maybe<Product>;
 }
 
 
@@ -129,6 +130,11 @@ interface QueryUserArgs {
 
 interface QueryProductsArgs {
   productGroupId: Scalars['Int'];
+}
+
+
+interface QueryProductArgs {
+  id: Scalars['ID'];
 }
 
 interface Config {
@@ -327,6 +333,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   adminUsers?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
   getConfig?: Resolver<Maybe<Array<Maybe<ResolversTypes['Config']>>>, ParentType, ContextType>;
   allProducts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>;
 };
 
 export type ConfigResolvers<ContextType = any, ParentType extends ResolversParentTypes['Config'] = ResolversParentTypes['Config']> = {

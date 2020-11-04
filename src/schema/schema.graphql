@@ -60,6 +60,7 @@ type Query {
 	adminUsers: [User]!
 	getConfig: [Config]
 	allProducts: [Product]
+	product(id: ID!): Product
 }
 
 type Config {

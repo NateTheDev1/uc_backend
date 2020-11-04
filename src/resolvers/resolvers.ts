@@ -9,6 +9,13 @@ import Product from "../models/Product";
 
 const resolvers: Resolvers.Resolvers = {
 	Query: {
+		product: async (parents, args: Resolvers.QueryProductArgs, context: Server.Context) => {
+			context.logger.info("Getting product");
+
+			const product = await Product.query().findById(args.id);
+
+			return product;
+		},
 		user: async (parent, args: Resolvers.QueryUserArgs, context: Server.Context) => {
 			const { userId } = args;
 
@@ -30,7 +37,7 @@ const resolvers: Resolvers.Resolvers = {
 
 			context.logger.info("Query: products for product group with id of " + productGroupId);
 
-			const products = await Product.query().where({ productGroupId });
+			const products = await Product.query().where({ productGroupId, enabled: true });
 
 			return products;
 		},
