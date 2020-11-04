@@ -173,6 +173,7 @@ const resolvers: Resolvers.Resolvers = {
 
 			const product = await Product.query().patchAndFetchById(args.product.id, {
 				name: prodArgs.name,
+				enabled: prodArgs.enabled,
 				description: prodArgs.description,
 				image: prodArgs.image,
 				price: prodArgs.price,
