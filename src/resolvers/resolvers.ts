@@ -37,7 +37,7 @@ const resolvers: Resolvers.Resolvers = {
 
 			context.logger.info("Query: products for product group with id of " + productGroupId);
 
-			const products = await Product.query().where({ productGroupId, enabled: true });
+			const products = await Product.query().where({ productGroupId, enabled: "TRUE" });
 
 			return products;
 		},
