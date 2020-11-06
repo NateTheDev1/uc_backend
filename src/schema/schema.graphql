@@ -7,6 +7,38 @@ type Mutation {
 	createProductGroup(productGroup: ProductGroupInput!): ProductGroup
 	deleteProduct(productId: Int!): Boolean!
 	editConfig(config: ConfigInput!): Boolean!
+	createOrder(order: OrderInput!): OrderReturn
+}
+
+type OrderReturn {
+	id: ID!
+	valid: Boolean!
+}
+
+input OrderInput {
+	id: ID!
+	amount: Int!
+	user: CustomerInput!
+	shipping: ShippingInput!
+	description: String!
+	cart: [CartItem]!
+}
+
+input CartItem {
+	name: String!
+	quantity: Int!
+}
+
+input ShippingInput {
+	zip: String!
+	state: String!
+	address: String!
+}
+
+input CustomerInput {
+	email: String!
+	name: String!
+	id: ID!
 }
 
 input ConfigInput {

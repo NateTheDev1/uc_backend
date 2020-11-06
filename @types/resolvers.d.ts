@@ -23,6 +23,7 @@ interface Mutation {
   createProductGroup?: Maybe<ProductGroup>;
   deleteProduct: Scalars['Boolean'];
   editConfig: Scalars['Boolean'];
+  createOrder?: Maybe<OrderReturn>;
 }
 
 
@@ -63,6 +64,43 @@ interface MutationDeleteProductArgs {
 
 interface MutationEditConfigArgs {
   config: ConfigInput;
+}
+
+
+interface MutationCreateOrderArgs {
+  order: OrderInput;
+}
+
+interface OrderReturn {
+  __typename?: 'OrderReturn';
+  id: Scalars['ID'];
+  valid: Scalars['Boolean'];
+}
+
+interface OrderInput {
+  id: Scalars['ID'];
+  amount: Scalars['Int'];
+  user: CustomerInput;
+  shipping: ShippingInput;
+  description: Scalars['String'];
+  cart: Array<Maybe<CartItem>>;
+}
+
+interface CartItem {
+  name: Scalars['String'];
+  quantity: Scalars['Int'];
+}
+
+interface ShippingInput {
+  zip: Scalars['String'];
+  state: Scalars['String'];
+  address: Scalars['String'];
+}
+
+interface CustomerInput {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  id: Scalars['ID'];
 }
 
 interface ConfigInput {
@@ -258,12 +296,17 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  ConfigInput: ConfigInput;
+  OrderReturn: ResolverTypeWrapper<OrderReturn>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  OrderInput: OrderInput;
   String: ResolverTypeWrapper<Scalars['String']>;
+  CartItem: CartItem;
+  ShippingInput: ShippingInput;
+  CustomerInput: CustomerInput;
+  ConfigInput: ConfigInput;
   ProductGroupInput: ProductGroupInput;
   ProductInput: ProductInput;
   EditProductInput: EditProductInput;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Product: ResolverTypeWrapper<Product>;
   ProductGroup: ResolverTypeWrapper<ProductGroup>;
   Query: ResolverTypeWrapper<{}>;
@@ -280,12 +323,17 @@ export type ResolversParentTypes = {
   Mutation: {};
   Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
-  ConfigInput: ConfigInput;
+  OrderReturn: OrderReturn;
+  ID: Scalars['ID'];
+  OrderInput: OrderInput;
   String: Scalars['String'];
+  CartItem: CartItem;
+  ShippingInput: ShippingInput;
+  CustomerInput: CustomerInput;
+  ConfigInput: ConfigInput;
   ProductGroupInput: ProductGroupInput;
   ProductInput: ProductInput;
   EditProductInput: EditProductInput;
-  ID: Scalars['ID'];
   Product: Product;
   ProductGroup: ProductGroup;
   Query: {};
@@ -306,6 +354,13 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createProductGroup?: Resolver<Maybe<ResolversTypes['ProductGroup']>, ParentType, ContextType, RequireFields<MutationCreateProductGroupArgs, 'productGroup'>>;
   deleteProduct?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'productId'>>;
   editConfig?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationEditConfigArgs, 'config'>>;
+  createOrder?: Resolver<Maybe<ResolversTypes['OrderReturn']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'order'>>;
+};
+
+export type OrderReturnResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderReturn'] = ResolversParentTypes['OrderReturn']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
@@ -366,6 +421,7 @@ export type SchemaResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
+  OrderReturn?: OrderReturnResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductGroup?: ProductGroupResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

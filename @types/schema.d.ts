@@ -20,6 +20,7 @@ interface Mutation {
   createProductGroup?: Maybe<ProductGroup>;
   deleteProduct: Scalars['Boolean'];
   editConfig: Scalars['Boolean'];
+  createOrder?: Maybe<OrderReturn>;
 }
 
 
@@ -60,6 +61,43 @@ interface MutationDeleteProductArgs {
 
 interface MutationEditConfigArgs {
   config: ConfigInput;
+}
+
+
+interface MutationCreateOrderArgs {
+  order: OrderInput;
+}
+
+interface OrderReturn {
+  __typename?: 'OrderReturn';
+  id: Scalars['ID'];
+  valid: Scalars['Boolean'];
+}
+
+interface OrderInput {
+  id: Scalars['ID'];
+  amount: Scalars['Int'];
+  user: CustomerInput;
+  shipping: ShippingInput;
+  description: Scalars['String'];
+  cart: Array<Maybe<CartItem>>;
+}
+
+interface CartItem {
+  name: Scalars['String'];
+  quantity: Scalars['Int'];
+}
+
+interface ShippingInput {
+  zip: Scalars['String'];
+  state: Scalars['String'];
+  address: Scalars['String'];
+}
+
+interface CustomerInput {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  id: Scalars['ID'];
 }
 
 interface ConfigInput {

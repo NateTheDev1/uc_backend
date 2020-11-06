@@ -6,6 +6,7 @@ import Config from "../models/Config";
 import { AuthenticationError } from "apollo-server";
 import ProductGroup from "../models/ProductGroup";
 import Product from "../models/Product";
+import { charge } from "./StripeUtility";
 
 const resolvers: Resolvers.Resolvers = {
 	Query: {
@@ -181,6 +182,17 @@ const resolvers: Resolvers.Resolvers = {
 			});
 
 			return product;
+		},
+		createOrder: async (parent, args: Resolvers.MutationCreateOrderArgs, context: Server.Context) => {
+			context.logger.info("Begin create payment and order.");
+
+			const { verified, orderConfirmation } = await charge(args);
+
+			if (!verified) {
+				throw new Error("Could not complete purchase");
+			}
+
+			return { id: orderConfirmation.id, valid: verified };
 		},
 	},
 };
