@@ -89,6 +89,7 @@ interface OrderInput {
 interface CartItem {
   name: Scalars['String'];
   quantity: Scalars['Int'];
+  mouse: Scalars['String'];
 }
 
 interface ShippingInput {
