@@ -24,7 +24,7 @@ export const charge = async (args: Resolvers.MutationCreateOrderArgs) => {
 
   logger.info("Starting transaction ");
 
-  const formattedAdress = `${order.shipping.address}, ${order.shipping.state} ${order.shipping.zip}`;
+  const formattedAdress = `${order.shipping.address}, ${order.shipping.state} ${order.shipping.zip}, ${order.shipping.country}`;
 
   let formattedDescription = "";
 

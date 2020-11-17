@@ -93,6 +93,7 @@ interface ShippingInput {
   zip: Scalars['String'];
   state: Scalars['String'];
   address: Scalars['String'];
+  country: Scalars['String'];
 }
 
 interface CustomerInput {
