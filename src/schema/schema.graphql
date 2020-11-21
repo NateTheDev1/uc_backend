@@ -22,6 +22,8 @@ input OrderInput {
   shipping: ShippingInput!
   description: String!
   cart: [CartItem]!
+  email: String!
+  name: String!
 }
 
 input CartItem {
@@ -35,6 +37,7 @@ input ShippingInput {
   state: String!
   address: String!
   country: String!
+  city: String!
 }
 
 input CustomerInput {

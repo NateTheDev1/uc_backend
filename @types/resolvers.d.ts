@@ -84,6 +84,8 @@ interface OrderInput {
   shipping: ShippingInput;
   description: Scalars['String'];
   cart: Array<Maybe<CartItem>>;
+  email: Scalars['String'];
+  name: Scalars['String'];
 }
 
 interface CartItem {
@@ -97,6 +99,7 @@ interface ShippingInput {
   state: Scalars['String'];
   address: Scalars['String'];
   country: Scalars['String'];
+  city: Scalars['String'];
 }
 
 interface CustomerInput {

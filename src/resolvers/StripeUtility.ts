@@ -20,11 +20,11 @@ const createCustomer = async (email: string, name: string) => {
 
 export const charge = async (args: Resolvers.MutationCreateOrderArgs) => {
   const { order } = args;
-  const customer = await createCustomer(order.user.email, order.user.name);
+  const customer = await createCustomer(order.email, order.name);
 
   logger.info("Starting transaction ");
 
-  const formattedAdress = `${order.shipping.address}, ${order.shipping.state} ${order.shipping.zip}, ${order.shipping.country}`;
+  const formattedAdress = `${order.shipping.address}, ${order.shipping.city}, ${order.shipping.state} ${order.shipping.zip}, ${order.shipping.country}`;
 
   let formattedDescription = "";
 
