@@ -32,7 +32,7 @@ export const charge = async (args: Resolvers.MutationCreateOrderArgs) => {
     formattedDescription +=
       `${order.cart[i]?.name}, quantity: ${order.cart[
         i
-      ]?.quantity.toString()} + ${order.cart[i]?.mouse}` + " ";
+      ]?.quantity.toString()} ${order.cart[i]?.mouse}` + " ";
   }
 
   try {
